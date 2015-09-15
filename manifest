@@ -1,0 +1,12 @@
+title=Flight Rising Viewer
+screensaver_title=Flight Rising Viewer
+subtitle=View Random Flight Rising Dragons
+mm_icon_focus_hd=pkg:/images/mm_icon_focus_hd.png
+mm_icon_side_hd=pkg:/images/mm_icon_side_hd.png
+mm_icon_focus_sd=pkg:/images/mm_icon_focus_sd.png
+mm_icon_side_sd=pkg:/images/mm_icon_side_sd.png
+splash_screen_hd=pkg:/images/not_here.png
+splash_screen_sd=pkg:/images/not_here.png
+major_version=3
+minor_version=0
+build_version=00000
