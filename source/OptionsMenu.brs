@@ -118,7 +118,7 @@ function ProcessNewUserID(Input)
 	if input.len() < 1 then return false
 	Registry = CreateObject("roRegistrySection", "Core")
 	WaitScreen = CreateObject("roOneLineDialog")
-	WaitScreen.SetTitle("Getting in from Flight Rising...")
+	WaitScreen.SetTitle("Getting info from Flight Rising...")
 	WaitScreen.ShowBusyAnimation()
 	WaitScreen.Show()
 	PageText = DownloadLairPage(Input, 1)

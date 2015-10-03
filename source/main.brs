@@ -83,7 +83,7 @@ end Function
 ' However if it isn't then it is an Error Dragon we'll create an "roBitmap" 
 function NewDragon(Dragon) as Object
 	DragonsLair = GetDragonsGold(Dragon) 'What is the filename we are displaying?
-	print type(DragonsLair)
+	print "type(DragonsLair):" + type(DragonsLair)
 	if type(DragonsLair) = "roBitmap" then
 		return CreateObject("roRegion",DragonsLair,0,0,DragonsLair.GetWidth(),DragonsLair.GetHeight())
 	else

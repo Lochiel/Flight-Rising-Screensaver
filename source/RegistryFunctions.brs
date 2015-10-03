@@ -15,7 +15,8 @@ function SaveDragonList(DragonList as Object, NextPage as String)
 	for each n in DragonList
 		DragonString = DragonString + n + ","
 	end for
-	
+	print "Dragons to Write: " + DragonString
+	print "Next Page: " + NextPage
 	if NOT RegistrySection.Write("DragonList", DragonString) then return false
 	if NOT RegistrySection.Write("NextPage", NextPage) then return false
 	return RegistrySection.Flush()

@@ -6,7 +6,11 @@
 
 ' If the dragon list is old, update. Otherwise, don't.
 Function GetDragonList(UserID as String)
-	if UpdateDragonList() then return GetUpdatedDragonList(UserID) else return GetSavedDragonList()
+	if UpdateDragonList() then 
+		return GetUpdatedDragonList(UserID) 
+	else 
+		return GetSavedDragonList()
+	end if
 end Function
 
 ' We update one page at a time. This allows us to spread our calls to the server out
@@ -18,7 +22,7 @@ Function GetUpdatedDragonList(UserID as String) as Object
 	LairPage = DownLoadLairPage(UserID, NextPage) ' Download the lair page
 	Dragons = AskTavernAboutDragons(LairPage) ' get the list of dragons for the lair page
 	index = (NextPage-1) * GetGlobalAA().MaxDragonsPerPage ' Set our starting point
-
+	
 	' Move Dragons into the Dragon List
 	for each n in Dragons
 		if DragonArray[index] = invalid then
@@ -65,7 +69,7 @@ Function DownloadLairPage(UserID as String, PgNum as Integer)
 				return msg.GetString()
 			else 
 				print code
-				return invalid
+				return "Invalid Webpage. Error Code: "+ code.toStr()
 			end if
 		end if
 	end while
@@ -73,6 +77,10 @@ end Function
 	
 ' Generate a list of dragons from the downloaded lair page
 Function AskTavernAboutDragons(TextFile as String)
+	if TextFile = invalid then
+		print "AskTavernAboutDragons: Invalid file from server"
+		return invalid
+	end if
 	RegexMatchDragons = CreateObject("roRegex", "class=.dragonthmb. src=""\/rendern\/avatars\/([0-9\/]+)\.png", "")
 	RegexSplit = CreateObject("roRegex", "<img", "")
 	SplitResults = RegexSplit.Split(TextFile)
@@ -91,7 +99,10 @@ end Function
 
 ' Find out if there are additional pages
 Function DragonsAhead(TextFile)
-	RegexMatchMoreDragons = CreateObject("roRegex", "src=\.\/images\/layout\/arrow_right\.png", "")
+	if TextFile = invalid then
+		return invalid
+	end if
+	RegexMatchMoreDragons = CreateObject("roRegex", "arrow_right\.png", "")
 	x = RegexMatchMoreDragons.Match(TextFile)
 	if x[0]=invalid
 		return false
@@ -102,6 +113,9 @@ end Function
 
 ' Get the user's name based on the downloaded lair page
 Function GetUserName(TextFile as String)
+	if TextFile = invalid then
+		return invalid
+	end if
 	RegexMatchName = CreateObject("roRegex", "(\w+): <a href=.main\.php\?p=lair&tab=userpage&id=", "")
 	Name = RegexMatchName.Match(TextFile)
 	return name[1]
